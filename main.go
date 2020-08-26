@@ -9,7 +9,10 @@ import (
 const fibMAX = 20 // 92 is the largest value before overwhelming type int
 
 func fibo() func() []int {
-	running := false // switches to true on the second call to fibo() - stays that way after
+	// running switches to true on the second call to fibo() - stays that way after
+	running := false
+	// nums will contain the sequense --an empty slice to be filled
+	// with starting values on the first run
 	nums := make([]int, 0)
 	f := func() []int {
 		if running {
