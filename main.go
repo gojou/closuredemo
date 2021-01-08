@@ -8,11 +8,13 @@ import (
 
 const fibMAX = 20 // 92 is the largest value before overwhelming type int
 
-func fibo() func() []int {
+func fibo() func() []int32 {
 
-	nums := make([]int, 0)
+	nums := make([]int32, 0)
 	nums = append(nums, 0, 1)
-	return (func() []int {
+
+	// The payload of the fibo() function, an anonymous function with persistent state
+	return (func() []int32 {
 		x := nums[len(nums)-2]
 		y := nums[len(nums)-1]
 		nums = append(nums, x+y)
@@ -23,7 +25,7 @@ func fibo() func() []int {
 
 func main() {
 	f := fibo()
-	seq := make([]int, 0)
+	seq := make([]int32, 0)
 	for i := 0; i < fibMAX; i++ {
 		fibs := f()
 		seq = append(seq, fibs[i])
