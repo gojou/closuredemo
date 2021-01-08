@@ -9,25 +9,16 @@ import (
 const fibMAX = 20 // 92 is the largest value before overwhelming type int
 
 func fibo() func() []int {
-	// running switches to true on the second call to fibo() - stays that way after
-	running := false
-	// nums will contain the sequense --an empty slice to be filled
-	// with starting values on the first run
-	nums := make([]int, 0)
-	f := func() []int {
-		if running {
-			x := nums[len(nums)-2]
-			y := nums[len(nums)-1]
-			nums = append(nums, x+y)
-			return nums
-		}
-		// else... [only reached in the first call of fibo()]
-		nums = append(nums, 0, 1)
-		running = true
-		return nums
 
-	}
-	return f
+	nums := make([]int, 0)
+	nums = append(nums, 0, 1)
+	return (func() []int {
+		x := nums[len(nums)-2]
+		y := nums[len(nums)-1]
+		nums = append(nums, x+y)
+		return nums
+	})
+
 }
 
 func main() {
@@ -46,5 +37,9 @@ func main() {
 	f = nil                 // dereference f
 	f = fibo()              //reinitialize f
 	fmt.Printf("%v\n", f()) //show that fibo() is starting fresh
+	fmt.Printf("%v\n", f())
+	fmt.Printf("%v\n", f())
+	fmt.Printf("%v\n", f())
+	fmt.Printf("%v\n", f())
 
 }
